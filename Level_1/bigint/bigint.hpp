@@ -2,47 +2,50 @@
 #define BIGINT_HPP
 
 #include <iostream>
-#include <string>
+#include <sstream>
+#include <cmath>
+#include <vector>
 #include <algorithm>
-#include <stdexcept>
 
 class bigint {
 private:
     std::string value; // Almacena los dígitos del número en una cadena.
-    void remove_leading_zeros(); // Método auxiliar para eliminar ceros iniciales.
 
 public:
     // Constructores
-    bigint();                   // Constructor por defecto (0).
-    bigint(const std::string &str); // Constructor desde string.
-    bigint(unsigned long long num); // Constructor desde entero.
-    bigint(const bigint &other); // Constructor de copia.
+    bigint();
+    bigint(int value);
+    bigint(const bigint &other);
+    ~bigint();
 
-    // Operadores aritméticos
-    bigint operator+(const bigint &other) const;
-    bigint& operator+=(const bigint &other);
-	bigint operator-(const bigint &other) const;
+    bigint  &operator=(const bigint &other);
 
-    // Operadores de desplazamiento de dígitos
-    bigint operator<<(size_t shift) const;
-    bigint& operator<<=(size_t shift);
-    bigint operator>>(size_t shift) const;
-    bigint& operator>>=(size_t shift);
+    
+    bool  &operator>(const bigint &value) const;
+    bool  &operator<(const bigint &value) const;
+    bool  &operator>=(const bigint &value) const;
+    bool  &operator<=(const bigint &value) const;
+    bool  &operator==(const bigint &value) const;
+    bool  &operator!=(const bigint &value) const;
 
-    // Operadores de comparación
-    bool operator<(const bigint &other) const;
-    bool operator>(const bigint &other) const;
-    bool operator<=(const bigint &other) const;
-    bool operator>=(const bigint &other) const;
-    bool operator==(const bigint &other) const;
-    bool operator!=(const bigint &other) const;
+    bigint  operator+(bigint value) const;
+    bigint  &operator+=(const bigint &value);
 
-    // Operadores de incremento
-    bigint& operator++();   // Preincremento.
-    bigint operator++(int); // Postincremento.
+    
+    bigint  operator++();
+    bigint  operator++(int);
+    bigint  operator>>(int shift);
+    bigint  operator<<(int shift);
+    bigint  &operator<<=(int shift);
+    bigint  &operator>>=(int shift);
+    bigint  &operator>>=(bigint shift);
 
-    // Operador de impresión
-    friend std::ostream& operator<<(std::ostream &os, const bigint &num);
+    std::string getvalue(void) const;
+
+    std::string toString(int value) const;
+    int toInt(const std::string &value);
 };
+
+std::ostream  &operator<<(std::ostream &os, const bigint &value);
 
 #endif // BIGINT_HPP
