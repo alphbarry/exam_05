@@ -18,33 +18,35 @@ public:
 
   bigint &operator=(const bigint &other);
 
-  //comparaison
-  bool operator==(const bigint &other) const;
-  bool operator!=(const bigint &other) const;
-  bool operator>(const bigint &other) const;
-  bool operator>=(const bigint &other) const;
-  bool operator<(const bigint &other) const;
-  bool operator<=(const bigint &other) const;
+  //Increment
+  bigint  operator++();
+  bigint  operator++(int);
 
-  //arithmetic operators
-  bigint operator+(const bigint &other) const;
-  bigint &operator+=(const bigint &other);
-  bigint operator-(const bigint &other) const;
-  bigint &operator-=(const bigint &other);
+  //Arithmetic operator
+  bigint  operator+(const bigint &other) const;
+  bigint  operator+=(const bigint &other);
+  bigint  operator-(const bigint &other) const;
+  bigint  operator-=(const bigint &other);
 
-  //increment
-  bigint operator++();
-  bigint operator++(int);
+  //Shifts
+  bigint  operator>>(int shift) const;
+  bigint  operator>>=(int shift);
+  bigint  operator<<(int shift) const;
+  bigint  operator<<=(int shift);
 
-  //shifts
-  bigint operator>>(int shift) const;
-  bigint operator<<(int shift) const;
-  bigint &operator>>=(int shift);
-  bigint &operator<<=(int shift);
+  //Comparaison
 
-  //util
+  bool  operator==(const bigint &other) const;
+  bool  operator!=(const bigint &other) const;
+  bool  operator>(const bigint &other) const;
+  bool  operator>=(const bigint &other) const;
+  bool  operator<(const bigint &other) const;
+  bool  operator<=(const bigint &other) const;
+
+  //Utils
   std::string toString() const;
 };
 
 std::ostream &operator<<(std::ostream &os, const bigint &value);
-#endif 
+
+#endif

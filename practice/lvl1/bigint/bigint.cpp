@@ -10,7 +10,7 @@ bigint::bigint(int value) : _value(value) {}
 bigint::bigint(const char *s){
   if (!s)
     _value = 0;
-  else 
+  else
     _value = std::stoll(std::string(s));
 }
 
@@ -28,7 +28,7 @@ bigint& bigint::operator=(const bigint &other){
   return *this;
 }
 
-//increment
+//Increment
 bigint bigint::operator++(){
   ++_value;
   return *this;
@@ -40,7 +40,41 @@ bigint bigint::operator++(int){
   return tmp;
 }
 
-//comparaison
+//Arithmetic operator
+bigint  bigint::operator+(const bigint &other) const{
+  return bigint(static_cast<int>(_value + other._value));
+}
+bigint  bigint::operator-(const bigint &other) const{
+  return bigint(static_cast<int>(_value - other._value));
+}
+
+bigint  bigint::operator+=(const bigint &other){
+  _value += other._value;
+  return *this;
+}
+bigint  bigint::operator-=(const bigint &other){
+  _value -= other._value;
+  return *this;
+}
+
+//shift
+bigint  bigint::operator>>(int shift) const{
+  return bigint(static_cast<int>(_value >> shift));
+}
+bigint  bigint::operator<<(int shift) const{
+  return bigint(static_cast<int>(_value << shift));
+}
+
+bigint  bigint::operator>>=(int shift){
+  _value >>= shift;
+  return *this;
+}
+bigint  bigint::operator<<=(int shift){
+  _value <<= shift;
+  return *this;
+}
+
+
 bool bigint::operator==(const bigint &other) const{
   return _value == other._value;
 }
@@ -60,45 +94,8 @@ bool bigint::operator<=(const bigint &other) const{
   return _value <= other._value;
 }
 
-//arithemtic operator
-bigint bigint::operator+(const bigint &other) const{
-  return bigint(static_cast<int>(_value + other._value));
-}
-
-bigint& bigint::operator+=(const bigint &other){
-  _value += other._value;
-  return *this;
-}
-
-bigint bigint::operator-(const bigint &other) const {
-  return bigint(static_cast<int>(_value - other._value));
-}
-
-bigint& bigint::operator-=(const bigint &other){
-  _value -= other._value;
-  return *this;
-}
-
-//shifts
-bigint bigint::operator>>(int shift) const{
-  return bigint(static_cast<int>(_value >> shift));
-}
-
-bigint& bigint::operator>>=(int shift){
-  _value >>= shift;
-  return *this;
-}
-bigint bigint::operator<<(int shift) const{
-  return bigint(static_cast<int>(_value << shift));
-}
-
-bigint& bigint::operator<<=(int shift){
-  _value <<= shift;
-  return *this;
-}
-
 //util
-std::string bigint::toString() const{
+std::string bigint::toString() const {
   return std::to_string(_value);
 }
 
