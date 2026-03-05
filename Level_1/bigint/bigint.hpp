@@ -2,50 +2,51 @@
 #define BIGINT_HPP
 
 #include <iostream>
-#include <sstream>
-#include <cmath>
-#include <vector>
-#include <algorithm>
+#include <string>
 
 class bigint {
 private:
-    std::string value; // Almacena los dígitos del número en una cadena.
+    long long _value;
 
 public:
     // Constructores
     bigint();
     bigint(int value);
+    bigint(const char* s);
+    bigint(const std::string &s);
     bigint(const bigint &other);
     ~bigint();
 
-    bigint  &operator=(const bigint &other);
+    bigint &operator=(const bigint &other);
 
-    
-    bool  &operator>(const bigint &value) const;
-    bool  &operator<(const bigint &value) const;
-    bool  &operator>=(const bigint &value) const;
-    bool  &operator<=(const bigint &value) const;
-    bool  &operator==(const bigint &value) const;
-    bool  &operator!=(const bigint &value) const;
+    // Comparisons
+    bool operator>(const bigint &other) const;
+    bool operator<(const bigint &other) const;
+    bool operator>=(const bigint &other) const;
+    bool operator<=(const bigint &other) const;
+    bool operator==(const bigint &other) const;
+    bool operator!=(const bigint &other) const;
 
-    bigint  operator+(bigint value) const;
-    bigint  &operator+=(const bigint &value);
+    // Arithmetic
+    bigint operator+(const bigint &other) const;
+    bigint &operator+=(const bigint &other);
+    bigint operator-(const bigint &other) const;
+    bigint &operator-=(const bigint &other);
 
-    
-    bigint  operator++();
-    bigint  operator++(int);
-    bigint  operator>>(int shift);
-    bigint  operator<<(int shift);
-    bigint  &operator<<=(int shift);
-    bigint  &operator>>=(int shift);
-    bigint  &operator>>=(bigint shift);
+    // Increment
+    bigint operator++();    // prefix
+    bigint operator++(int); // postfix
 
-    std::string getvalue(void) const;
+    // Shifts (logical arithmetic using powers of two)
+    bigint operator<<(int shift) const;
+    bigint operator>>(int shift) const;
+    bigint &operator<<=(int shift);
+    bigint &operator>>=(int shift);
 
-    std::string toString(int value) const;
-    int toInt(const std::string &value);
+    std::string toString() const;
 };
 
-std::ostream  &operator<<(std::ostream &os, const bigint &value);
+std::ostream &operator<<(std::ostream &os, const bigint &value);
 
 #endif // BIGINT_HPP
+

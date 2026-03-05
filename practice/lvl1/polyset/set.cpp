@@ -1,31 +1,45 @@
 #include "set.hpp"
 
-set::set(searchable_bag& b) : bag_ref(b) {}
+set::set() : bag_ref() {}
 
-void  set::insert(int value){
-  if (!bag_ref.has(value))
-    bag_ref.insert(value);
+set::set(searchable_bag &b) : bag_ref(&b) {}
+
+set::set(const set &other) : bag_ref(other.bag_ref) {}
+
+set &set::operator=(const set &other) {
+	if (this != &other)
+		bag_ref = other.bag_ref;
+	return *this;
 }
 
-void  set::insert(int *values, int count){
-  for (int i = 0; i < count; i++){
-    if (!bag_ref.has(values[i]))
-      insert(values[i]);
-  }
+set::~set() {}
+
+void set::insert(int value){
+	if (bag_ref != 0 && !bag_ref->has(value))
+		bag_ref->insert(value);
 }
 
-bool  set::has(int value) const{
-  return bag_ref.has(value);
+void set::insert(int *values, int count){
+	if (bag_ref == 0)
+		return;
+	for (int i = 0; i < count; ++i){
+		if (!bag_ref->has(values[i]))
+			insert(values[i]);
+	}
 }
 
-void  set::print() const{
-  bag_ref.print();
+bool set::has(int value) const{
+	return bag_ref->has(value);
 }
 
-void  set::clear(){
-  bag_ref.clear();
+void set::print() const{
+	bag_ref->print();
 }
 
-const searchable_bag& set::get_bag() const{
-  return bag_ref;
+void set::clear() {
+	bag_ref->clear();
+}
+
+const searchable_bag &set::get_bag() const{
+	return *bag_ref;
 }

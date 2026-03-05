@@ -5,10 +5,14 @@
 
 class set {
 private:
-  searchable_bag& bag_ref;
+  searchable_bag *bag_ref;
 
 public:
+  set();
   set(searchable_bag& b);
+  set(const set &other);
+  set &operator=(const set &other);
+  ~set();
 
   void  insert(int value);
   void  insert(int *values, int count);

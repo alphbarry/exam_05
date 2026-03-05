@@ -74,7 +74,6 @@ bigint  bigint::operator<<=(int shift){
   return *this;
 }
 
-
 bool bigint::operator==(const bigint &other) const{
   return _value == other._value;
 }
@@ -94,12 +93,12 @@ bool bigint::operator<=(const bigint &other) const{
   return _value <= other._value;
 }
 
-//util
-std::string bigint::toString() const {
+//utils
+std::string bigint::toString(){
   return std::to_string(_value);
 }
 
 std::ostream &operator<<(std::ostream &os, const bigint &value){
-  os << value.toString();
+  os << _value.toString();
   return os;
 }
