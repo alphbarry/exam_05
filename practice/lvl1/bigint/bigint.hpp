@@ -5,47 +5,33 @@
 #include <string>
 
 class bigint {
-
 private:
-  long long _value;
-public:
-  bigint();
-  bigint(int value);
-  bigint(const char *s);
-  bigint(const std::string &s);
-  bigint(const bigint &other);
-  ~bigint();
+        std::string digits;
 
-  bigint operator=(const bigint &other);
+    public:
+        bigint(); // default -> 0
+        bigint(unsigned int n); // from int
+        bigint(const bigint& other); // copy constructor: bigint(const bigint&)
 
-  //increment
-  bigint operator++();
-  bigint operator++(int);
 
-  //arithmetic operators
-  bigint operator+(const bigint &other) const;
-  bigint operator-(const bigint &other) const;
-  bigint operator+=(const bigint &other);
-  bigint operator-=(const bigint &other);
+        friend std::ostream& operator<<(std::ostream& os, const bigint& n);
 
-  //shifts
-  bigint operator>>(int shift) const;
-  bigint operator<<(int shift) const;
-  bigint operator>>=(int shift);
-  bigint operator<<=(int shift);
+        bigint operator<<(unsigned int n) const;
+        bigint& operator<<=(unsigned int n); // digit shift in-place
+        bigint operator>>(unsigned int n) const;
+        bigint& operator>>=(unsigned int n); // digit shift in-place
 
-  //comparaison
-  bool operator==(const bigint &other) const;
-  bool operator!=(const bigint &other) const;
-  bool operator>(const bigint &other) const;
-  bool operator>=(const bigint &other) const;
-  bool operator<(const bigint &other) const;
-  bool operator<=(const bigint &other) const;
+        bool operator<(const bigint& other) const;
+        bool operator<=(const bigint& other) const;
+        bool operator>(const bigint& other) const;
+        bool operator>=(const bigint& other) const;
+        
+        bool operator==(const bigint& other) const;
+        bool operator!=(const bigint& other) const;
 
-  //utils
-  std::string toString() const;
+        bigint operator+(const bigint& other) const;
+        bigint& operator+=(const bigint& other);
+        bigint& operator++(); //++x
+        bigint operator++(int); //x++
 };
-
-std::ostream &operator<<(std::ostream &os, const bigint value);
-
 #endif
